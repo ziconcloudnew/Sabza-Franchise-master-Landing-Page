@@ -119,6 +119,7 @@ The platform follows a **frontend–backend–database** model:
 - **Clean minimal UI** optimized for lead capture.  
 
 ## How to run the project
+- Make sure node and npm is installed
 - Open bash terminal to root of project (Folder that holds both backend and frontend)
 - Direct to folder containing backend (cd "backend")
 - "py app.py" OR "python app.py" to run backend
