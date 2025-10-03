@@ -119,9 +119,9 @@ The platform follows a **frontend–backend–database** model:
 - **Clean minimal UI** optimized for lead capture.  
 
 ## How to run the project
-- Open bash terminal to root of project
-- Direct to folder containing backend
-- py app.py OR python app.py to run backend
+- Open bash terminal to root of project (Folder that holds both backend and frontend)
+- Direct to folder containing backend (cd "backend")
+- "py app.py" OR "python app.py" to run backend
 - Open new terminal
-- Direct to folder containing main project
-- npm run dev to run frontend
+- Direct to folder containing main project (cd "sabza-franchise-)
+- "npm run dev" to run frontend
