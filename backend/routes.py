@@ -25,3 +25,7 @@ def save_to_db_demo():
 @contact_bp.route('/tokenx_enterprise', methods=['POST'])
 def save_to_db_enterprise():
     return save_enterprise_contact()
+
+@contact_bp.route('/health', methods=['GET'])
+def health_check():
+    return {"status": "ok"}, 200
