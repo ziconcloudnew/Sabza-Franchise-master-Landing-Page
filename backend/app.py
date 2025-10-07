@@ -29,5 +29,6 @@ app.register_blueprint(contact_bp)
 
 print_debug_info(app)
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5050)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5050, debug=True)
+
