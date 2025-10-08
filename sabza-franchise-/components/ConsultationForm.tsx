@@ -21,7 +21,7 @@ const ConsultationForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5050/api/contact/token_swapping", {
+      const response = await axios.post("http://app-alb-232255282.us-east-1.elb.amazonaws.com/api/contact/token_swapping", {
         formData,
         lead: "Sabza Franchise",
         org: "SABZA",
