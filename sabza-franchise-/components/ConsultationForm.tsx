@@ -21,20 +21,16 @@ export default function ConsultationForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://app-alb-1232706876.us-east-1.elb.amazonaws.com/api/contact/sabza_fran",
-        {
-          formData,
-          lead: "Consultation Form",
-          source: "Website",
-          org: "SABZA",
-        }
-      );
+      const response = await axios.post("/api/contact/sabza_fran", {
+        formData,
+        lead: "Consultation Form",
+        source: "Website",
+        org: "SABZA",
+      });
 
       console.log("Server response:", response.data);
       alert("Thank you! We’ll contact you soon for your consultation.");
 
-      // Reset all fields
       setFormData({
         name: "",
         email: "",
@@ -44,7 +40,7 @@ export default function ConsultationForm() {
         message: "",
       });
 
-      setOpen(false); // Close modal after submit
+      setOpen(false);
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("Something went wrong. Please try again later.");
@@ -53,7 +49,6 @@ export default function ConsultationForm() {
 
   return (
     <>
-      {/* Floating Button */}
       <button
         onClick={() => setOpen(true)}
         className="group fixed right-6 bottom-6 bg-green-600 text-white h-12 w-12 rounded-full shadow-lg 
@@ -66,11 +61,9 @@ export default function ConsultationForm() {
         </span>
       </button>
 
-      {/* Modal */}
       {open && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-xl p-6 max-h-[90vh] w-[450px] relative overflow-y-auto">
-            {/* Close Button */}
             <button
               onClick={() => setOpen(false)}
               className="absolute top-3 right-3 text-gray-600 hover:text-red-500"
