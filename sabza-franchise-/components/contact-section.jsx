@@ -17,31 +17,31 @@ export function ContactSection() {
   })
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
-      const response = await axios.post("http://app-alb-1232706876.us-east-1.elb.amazonaws.com/api/contact/sabza_fran", {
+      const response = await axios.post("/api/contact/sabza_fran", {
         formData,
-        lead: "Sabza Franchise", 
+        lead: "Sabza Franchise",
         source: "Contact Form",
-        org: "SABZA"
-      });
-      console.log("Server response:", response.data);
+        org: "SABZA",
+      })
 
-      setFormData({ name: "", email: "", company: "", message: "" });
-      alert("Thank you for your interest! We will contact you soon.");
+      console.log("Server response:", response.data)
+      setFormData({ name: "", email: "", company: "", message: "" })
+      alert("Thank you for your interest! We will contact you soon.")
     } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("Something went wrong. Please try again later.");
+      console.error("Error submitting form:", error)
+      alert("Something went wrong. Please try again later.")
     }
-  };
+  }
 
   return (
     <section id="contact" className="py-20 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-       <span className="text-secondary">Get Involved</span>
+            <span className="text-secondary">Get Involved</span>
           </h2>
           <p className="text-xl text-muted max-w-3xl mx-auto">
             Join us in building the world's first decentralized carbon credit franchise
@@ -99,49 +99,38 @@ export function ContactSection() {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <Input
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    required
-                    className="w-full text-gray-900 placeholder:text-gray-500"
-                  />
-                </div>
+                <Input
+                  name="name"
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  required
+                />
 
-                <div>
-                  <Input
-                    name="email"
-                    type="email"
-                    placeholder="Your Email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                    className="w-full text-gray-900 placeholder:text-gray-500"
-                  />
-                </div>
+                <Input
+                  name="email"
+                  type="email"
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  required
+                />
 
-                <div>
-                  <Input
-                    name="company"
-                    placeholder="Company/Organization"
-                    value={formData.company}
-                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    className="w-full text-gray-900 placeholder:text-gray-500"
-                  />
-                </div>
+                <Input
+                  name="company"
+                  placeholder="Company/Organization"
+                  value={formData.company}
+                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                />
 
-                <div>
-                  <Textarea
-                    name="message"
-                    placeholder="Tell us about your interest in SABZA..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    required
-                    className="w-full min-h-[120px] text-gray-900 placeholder:text-gray-500"
-                  />
-                </div>
+                <Textarea
+                  name="message"
+                  placeholder="Tell us about your interest in SABZA..."
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  required
+                  className="min-h-[120px]"
+                />
 
                 <Button type="submit" className="w-full" size="lg">
                   Send Message
