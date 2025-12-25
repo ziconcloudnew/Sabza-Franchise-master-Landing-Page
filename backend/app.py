@@ -17,7 +17,7 @@ def print_debug_info(app):
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "http://localhost:3001","http://localhost:5174", "http://localhost:5175", "http://localhost:5176","http://localhost:5177", "http://34.47.204.148" ]}}, methods = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])  # for frontend
+CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "http://localhost:3001","http://localhost:5174", "http://localhost:5175", "http://localhost:5176","http://localhost:5177", "http://34.47.204.148", "http://34.14.210.55"]}}, methods = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])  # for frontend
 
 
 # MongoDB
