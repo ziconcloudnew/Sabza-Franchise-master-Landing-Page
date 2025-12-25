@@ -22,7 +22,7 @@ export default function ConsultationForm() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://34.47.204.148/api/contact/sabza_fran",
+        "/api/contact/sabza_fran",
         {
           formData,
           lead: "Consultation Form",
