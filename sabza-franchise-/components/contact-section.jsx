@@ -20,7 +20,7 @@ export function ContactSection() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://34.47.204.148/api/contact/sabza_fran", {
+      const response = await axios.post("/api/contact/sabza_fran", {
         formData,
         lead: "Sabza Franchise", 
         source: "Contact Form",
