@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sabza-backend
+  namespace: sabza-landingpage-2
+  labels:
+    app: sabza-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sabza-backend
+  template:
+    metadata:
+      labels:
+        app: sabza-backend
+    spec:
+      containers:
+      - name: sabza-backend
+        image: laiba777/sabza-backend:v1 
+        ports:
+        - containerPort: 5000
+        env:
+        - name: LEADS_DB_URI
+          value: "mongodb+srv://duaarshadhasan:Hayday218@sabza.gdas4qp.mongodb.net/sabza"

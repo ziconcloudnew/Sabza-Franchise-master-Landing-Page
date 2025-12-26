@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sabza-backend-service
+  namespace: sabza-landingpage-2
+spec:
+  selector:
+    app: sabza-backend
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: ClusterIP

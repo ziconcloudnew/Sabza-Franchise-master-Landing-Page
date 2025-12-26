@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sabza-frontend
+  namespace: sabza-landingpage-2
+  labels:
+    app: sabza-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sabza-frontend
+  template:
+    metadata:
+      labels:
+        app: sabza-frontend
+    spec:
+      containers:
+        - name: sabza-frontend
+          image: laiba777/sabza-frontend:v2
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
