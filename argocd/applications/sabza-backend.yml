@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sabza-backend
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/iam-laiba-mannan4477/Sabza-Franchise-master-Landing-Page.git
+    targetRevision: main
+    path: backend/kubernetes
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: sabza-landingpage-2
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
