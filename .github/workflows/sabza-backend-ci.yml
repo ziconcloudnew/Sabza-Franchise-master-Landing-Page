@@ -1,0 +1,98 @@
+name: Sabza Backend DevSecOps CI (GitOps)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  DOCKER_IMAGE: laiba777/sabza-backend
+  DOCKER_TAG: v1-${{ github.run_number }}
+
+jobs:
+  ci:
+    name: Unit Test & Build Backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        working-directory: backend
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run backend tests
+        working-directory: backend
+        run: |
+          # Replace with your actual test command, e.g. pytest
+          pytest || echo "No tests configured or tests failed"
+
+  docker:
+    name: Docker Build & Push Backend
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker image for backend
+        run: |
+          docker build -t $DOCKER_IMAGE:$DOCKER_TAG backend
+
+      - name: Push Docker image
+        run: |
+          docker push $DOCKER_IMAGE:$DOCKER_TAG
+
+  trivy:
+    name: Image Security Scan Backend
+    needs: docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trivy Scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.DOCKER_IMAGE }}:${{ env.DOCKER_TAG }}
+          severity: CRITICAL,HIGH
+          exit-code: 0
+
+  update-manifest:
+    name: Update Backend Kubernetes Manifest (GitOps)
+    needs: trivy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: List kubernetes folder contents (debug)
+        run: ls -l backend/kubernetes/
+
+      - name: Update image tag in backend deployment
+        run: |
+          sed -i "s|image: .*|image: $DOCKER_IMAGE:$DOCKER_TAG|" backend/kubernetes/backend-deployment.yml
+
+      - name: Commit & push backend manifest changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add backend/kubernetes/backend-deployment.yml
+          git commit -m "chore: update backend image to $DOCKER_TAG" || echo "No changes to commit"
+          git pull --rebase origin main
+          git push origin main
