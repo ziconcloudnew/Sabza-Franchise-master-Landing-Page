@@ -79,9 +79,12 @@ jobs:
         with:
           persist-credentials: true
 
+      - name: List kubernetes folder contents (debug)
+        run: ls -l sabza-franchise-/kubernetes/
+
       - name: Update image tag in deployment
         run: |
-          sed -i "s|image: .*|image: $DOCKER_IMAGE:$DOCKER_TAG|" kubernetes/frontend-deployment.yml
+          sed -i "s|image: .*|image: $DOCKER_IMAGE:$DOCKER_TAG|" sabza-franchise-/kubernetes/frontend-deployment.yml
 
       - name: Commit & push changes
         env:
@@ -89,7 +92,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add kubernetes/frontend-deployment.yml
+          git add sabza-franchise-/kubernetes/frontend-deployment.yml
           git commit -m "chore: update frontend image to $DOCKER_TAG" || echo "No changes to commit"
           git pull --rebase origin main
           git push origin main
