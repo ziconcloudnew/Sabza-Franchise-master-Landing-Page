@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: sabza-frontend
-          image: laiba777/sabza-frontend:v2-3
+          image: laiba777/sabza-frontend:v2-4
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
