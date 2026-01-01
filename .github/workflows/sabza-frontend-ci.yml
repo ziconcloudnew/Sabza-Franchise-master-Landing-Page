@@ -24,12 +24,15 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
+        working-directory: sabza-franchise-
         run: npm ci
 
       - name: Run unit tests
+        working-directory: sabza-franchise-
         run: npm test || echo "No tests configured"
 
       - name: Build frontend
+        working-directory: sabza-franchise-
         run: npm run build
 
   docker:
@@ -48,7 +51,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t $DOCKER_IMAGE:$DOCKER_TAG .
+          docker build -t $DOCKER_IMAGE:$DOCKER_TAG sabza-franchise-
 
       - name: Push Docker image
         run: |
@@ -87,6 +90,6 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add kubernetes/frontend-deployment.yml
-          git commit -m "chore: update frontend image to $DOCKER_TAG"
+          git commit -m "chore: update frontend image to $DOCKER_TAG" || echo "No changes to commit"
           git pull --rebase origin main
           git push origin main
