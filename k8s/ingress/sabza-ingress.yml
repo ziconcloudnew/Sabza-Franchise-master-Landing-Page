@@ -8,7 +8,8 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - http:
+  - host: sabza.local          # <--- Added this line for unique host
+    http:
       paths:
       - path: /api
         pathType: Prefix
@@ -24,3 +25,4 @@ spec:
             name: sabza-frontend-service
             port:
               number: 80
+
